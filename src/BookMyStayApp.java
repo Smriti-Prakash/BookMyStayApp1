@@ -2,33 +2,39 @@
  * ===============================================================
  * MAIN CLASS - BookMyStayApp
  * ===============================================================
- * Use Case 4: Room Search & Availability Check
+ * Use Case 5: Booking Request Queue (FIFO)
  *
- * @version 4.0
+ * @version 5.0
  */
 public class BookMyStayApp {
 
     public static void main(String[] args) {
 
-        System.out.println("Room Search\n");
+        System.out.println("Booking Request Queue\n");
 
-        // Domain objects
-        Room singleRoom = new SingleRoom();
-        Room doubleRoom = new DoubleRoom();
-        Room suiteRoom = new SuiteRoom();
+        // Initialize queue
+        BookingRequestQueue bookingQueue = new BookingRequestQueue();
 
-        // Centralized inventory
-        RoomInventory inventory = new RoomInventory();
+        // Create booking requests
+        Reservation r1 = new Reservation("Abhi", "Single");
+        Reservation r2 = new Reservation("Subha", "Double");
+        Reservation r3 = new Reservation("Vanmathi", "Suite");
 
-        // Search service
-        RoomSearchService searchService = new RoomSearchService();
+        // Add to queue (FIFO order)
+        bookingQueue.addRequest(r1);
+        bookingQueue.addRequest(r2);
+        bookingQueue.addRequest(r3);
 
-        // Perform search (READ ONLY)
-        searchService.searchAvailableRooms(
-                inventory,
-                singleRoom,
-                doubleRoom,
-                suiteRoom
-        );
+        // Process requests in FIFO order
+        while (bookingQueue.hasPendingRequests()) {
+            Reservation current = bookingQueue.getNextRequest();
+
+            System.out.println(
+                    "Processing booking for Guest: " +
+                            current.getGuestName() +
+                            ", Room Type: " +
+                            current.getRoomType()
+            );
+        }
     }
 }
