@@ -2,44 +2,33 @@
  * ===============================================================
  * MAIN CLASS - BookMyStayApp
  * ===============================================================
- * Use Case 3: Centralized Room Inventory Management
+ * Use Case 4: Room Search & Availability Check
  *
- * @version 3.1
+ * @version 4.0
  */
 public class BookMyStayApp {
 
     public static void main(String[] args) {
 
-        System.out.println("Hotel Room Inventory Status\n");
+        System.out.println("Room Search\n");
 
-        // Room objects (domain)
+        // Domain objects
         Room singleRoom = new SingleRoom();
         Room doubleRoom = new DoubleRoom();
         Room suiteRoom = new SuiteRoom();
 
-        // Centralized Inventory
+        // Centralized inventory
         RoomInventory inventory = new RoomInventory();
 
-        // Display Single Room
-        System.out.println("Single Room:");
-        singleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " +
-                inventory.getRoomAvailability().get("Single"));
+        // Search service
+        RoomSearchService searchService = new RoomSearchService();
 
-        System.out.println();
-
-        // Display Double Room
-        System.out.println("Double Room:");
-        doubleRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " +
-                inventory.getRoomAvailability().get("Double"));
-
-        System.out.println();
-
-        // Display Suite Room
-        System.out.println("Suite Room:");
-        suiteRoom.displayRoomDetails();
-        System.out.println("Available Rooms: " +
-                inventory.getRoomAvailability().get("Suite"));
+        // Perform search (READ ONLY)
+        searchService.searchAvailableRooms(
+                inventory,
+                singleRoom,
+                doubleRoom,
+                suiteRoom
+        );
     }
 }
