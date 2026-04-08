@@ -2,28 +2,36 @@
  * ===============================================================
  * MAIN CLASS - BookMyStayApp
  * ===============================================================
- * Use Case 8: Booking History & Reporting
+ * Use Case 10: Booking Cancellation
  *
- * @version 8.0
+ * @version 10.0
  */
 public class BookMyStayApp {
 
     public static void main(String[] args) {
 
-        System.out.println("Booking History and Reporting\n");
+        System.out.println("Booking Cancellation\n");
 
-        // Booking history
-        BookingHistory history = new BookingHistory();
+        // Inventory
+        RoomInventory inventory = new RoomInventory();
 
-        // Simulating confirmed bookings (from UC6)
-        history.addReservation(new Reservation("Abhi", "Single"));
-        history.addReservation(new Reservation("Subha", "Double"));
-        history.addReservation(new Reservation("Vanmathi", "Suite"));
+        // Cancellation service
+        CancellationService cancellationService = new CancellationService();
 
-        // Report service
-        BookingReportService reportService = new BookingReportService();
+        // Simulate confirmed booking (from UC6)
+        String reservationId = "Single-1";
+        String roomType = "Single";
 
-        // Generate report
-        reportService.generateReport(history);
+        cancellationService.registerBooking(reservationId, roomType);
+
+        // Cancel booking
+        cancellationService.cancelBooking(reservationId, inventory);
+
+        // Show rollback history
+        cancellationService.showRollbackHistory();
+
+        // Show updated availability
+        System.out.println("\nUpdated Single Room Availability: " +
+                inventory.getRoomAvailability().get("Single"));
     }
 }

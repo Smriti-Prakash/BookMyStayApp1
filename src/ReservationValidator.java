@@ -14,12 +14,12 @@ public class ReservationValidator {
             RoomInventory inventory
     ) throws InvalidBookingException {
 
-        // Validate guest name
+        // 1. Validate guest name
         if (guestName == null || guestName.trim().isEmpty()) {
             throw new InvalidBookingException("Guest name cannot be empty.");
         }
 
-        // Validate room type (case-sensitive as per requirement)
+        // 2. Validate room type (STRICT CASE-SENSITIVE)
         if (!roomType.equals("Single") &&
                 !roomType.equals("Double") &&
                 !roomType.equals("Suite")) {
@@ -27,7 +27,7 @@ public class ReservationValidator {
             throw new InvalidBookingException("Invalid room type selected.");
         }
 
-        // Validate availability
+        // 3. Validate availability
         int available = inventory.getRoomAvailability()
                 .getOrDefault(roomType, 0);
 
