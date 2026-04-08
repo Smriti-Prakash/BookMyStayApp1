@@ -2,43 +2,44 @@
  * ===============================================================
  * MAIN CLASS - BookMyStayApp
  * ===============================================================
- * Use Case 2: Basic Room Types & Static Availability
+ * Use Case 3: Centralized Room Inventory Management
  *
- * @version 2.1
+ * @version 3.1
  */
 public class BookMyStayApp {
 
     public static void main(String[] args) {
 
-        System.out.println("Hotel Room Initialization\n");
+        System.out.println("Hotel Room Inventory Status\n");
 
-        // Creating room objects (Polymorphism)
+        // Room objects (domain)
         Room singleRoom = new SingleRoom();
         Room doubleRoom = new DoubleRoom();
         Room suiteRoom = new SuiteRoom();
 
-        // Static availability (simple variables)
-        int singleAvailable = 5;
-        int doubleAvailable = 3;
-        int suiteAvailable = 2;
+        // Centralized Inventory
+        RoomInventory inventory = new RoomInventory();
 
         // Display Single Room
         System.out.println("Single Room:");
         singleRoom.displayRoomDetails();
-        System.out.println("Available: " + singleAvailable);
+        System.out.println("Available Rooms: " +
+                inventory.getRoomAvailability().get("Single"));
 
         System.out.println();
 
         // Display Double Room
         System.out.println("Double Room:");
         doubleRoom.displayRoomDetails();
-        System.out.println("Available: " + doubleAvailable);
+        System.out.println("Available Rooms: " +
+                inventory.getRoomAvailability().get("Double"));
 
         System.out.println();
 
         // Display Suite Room
         System.out.println("Suite Room:");
         suiteRoom.displayRoomDetails();
-        System.out.println("Available: " + suiteAvailable);
+        System.out.println("Available Rooms: " +
+                inventory.getRoomAvailability().get("Suite"));
     }
 }
