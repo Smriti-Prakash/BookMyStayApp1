@@ -2,39 +2,28 @@
  * ===============================================================
  * MAIN CLASS - BookMyStayApp
  * ===============================================================
- * Use Case 5: Booking Request Queue (FIFO)
+ * Use Case 8: Booking History & Reporting
  *
- * @version 5.0
+ * @version 8.0
  */
 public class BookMyStayApp {
 
     public static void main(String[] args) {
 
-        System.out.println("Booking Request Queue\n");
+        System.out.println("Booking History and Reporting\n");
 
-        // Initialize queue
-        BookingRequestQueue bookingQueue = new BookingRequestQueue();
+        // Booking history
+        BookingHistory history = new BookingHistory();
 
-        // Create booking requests
-        Reservation r1 = new Reservation("Abhi", "Single");
-        Reservation r2 = new Reservation("Subha", "Double");
-        Reservation r3 = new Reservation("Vanmathi", "Suite");
+        // Simulating confirmed bookings (from UC6)
+        history.addReservation(new Reservation("Abhi", "Single"));
+        history.addReservation(new Reservation("Subha", "Double"));
+        history.addReservation(new Reservation("Vanmathi", "Suite"));
 
-        // Add to queue (FIFO order)
-        bookingQueue.addRequest(r1);
-        bookingQueue.addRequest(r2);
-        bookingQueue.addRequest(r3);
+        // Report service
+        BookingReportService reportService = new BookingReportService();
 
-        // Process requests in FIFO order
-        while (bookingQueue.hasPendingRequests()) {
-            Reservation current = bookingQueue.getNextRequest();
-
-            System.out.println(
-                    "Processing booking for Guest: " +
-                            current.getGuestName() +
-                            ", Room Type: " +
-                            current.getRoomType()
-            );
-        }
+        // Generate report
+        reportService.generateReport(history);
     }
 }
